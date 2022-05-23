@@ -105,13 +105,13 @@ function windowToCanvas(canvas, x, y) {
 
 canvas.onclick = function (e) {
    var loc = windowToCanvas(canvas, e.clientX, e.clientY);
-  if (totalPoints < 10) {
+  if (totalPoints < 20) {
    addStorage(loc.x,loc.y)
    updatePoints(loc.x, loc.y);
    //updateReadout(loc.x, loc.y);
    
   }
-  else if (totalPoints > 9 && popUpSeen === false) {
+  else if (totalPoints > 19 && popUpSeen === false) {
       alert('To many Points! (10)')
       popUpSeen = true 
   }
