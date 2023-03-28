@@ -1,0 +1,15 @@
+{
+  "name": "translation-project",
+  "version": "1.0.0",
+  "description": "veiw at",
+  "main": "app.js",
+  "scripts": {
+    "test" : "nodemon --experimental-modules app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
