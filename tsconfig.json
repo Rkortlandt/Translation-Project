@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "ES2020",
+      "esModuleInterop": true,
+      "target": "ES2022",
+      "moduleResolution": "node",
+      "outDir": "dist",
+      "sourceMap": true
+    },  
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
+  }
+  
