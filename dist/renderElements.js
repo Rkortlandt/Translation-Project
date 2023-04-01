@@ -1,7 +1,14 @@
 export default function renderPoints(ptx, canvas) {
-    for (let i = 1; i < sessionStorage.length + 1; i++) {
-        const pointElement = JSON.parse(sessionStorage.getItem(`${i.toString()}${'Point'}`) || "null");
-        ptx.clearRect(0, 0, canvas.width, canvas.height);
+    ptx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < sessionStorage.length; i++) {
+        console.log(`${i}Point`);
+        const pointElement = JSON.parse(sessionStorage.getItem(`${i}Point`));
+        // if (pointElement == null) {
+        //     continue;
+        // }
+        console.log(pointElement);
+        console.log('this code is running');
+        console.log(sessionStorage.length);
         ptx.beginPath();
         ptx.strokeStyle = "#14425a";
         ptx.fillStyle = "#14425a";

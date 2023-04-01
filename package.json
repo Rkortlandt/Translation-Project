@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "tsc": "tsc",
     "test" : "nodemon app.cjs"
   },
   "author": "",

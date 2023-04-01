@@ -17,5 +17,5 @@ export function addPointStorage(x, y, id, gridSpacing) {
         Y: -pointScreenPoint.Y + 484/2  
     }
     var Point = new point(pointCords, pointScreenPoint, id);
-    sessionStorage.setItem(JSON.stringify(`${Point.getPoint.id}${Point.getPoint.type}`), JSON.stringify(Point.getPoint));
+    sessionStorage.setItem(`${Point.getPoint.id}${Point.getPoint.type}`, JSON.stringify(Point.getPoint));
 }

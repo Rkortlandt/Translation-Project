@@ -2,7 +2,7 @@
  * @param gridSpacing Spacing of the grid 
  * @param stx Static canvas element
  */
-export function initGraph(gridSpacing, stx) {
+export function initGraph(gridSpacing : number, stx : any) {
 	//Main Lines
 	console.log('initGraph Func Called');
 

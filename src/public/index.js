@@ -1,10 +1,10 @@
-import {initGraph} from "./modules/graph.js";
+import {initGraph} from "./graph.js";
 import { addPointStorage } from "./addStorage.js";
 import renderPoints from "./renderElements.js";
 // import {line} from "./modules/line.js";
 // import {point} from "./modules/point.js";s
 // import {shape} from "./modules/shape.js";
-import { clearAll, clearGuidelines, clearPointsLinesGuidelines, clearStorage } from "./modules/clearCanvas.js";
+import { clearAll, clearGuidelines, clearPointsLinesGuidelines, clearStorage } from "./clearCanvas.js";
 import closestNumber from "./SNAP.js";
 //'Most of the global vars'--------------------------------------------
 var l = document.getElementById("lines"),
@@ -28,20 +28,39 @@ var reflectX = false,
 console.log(`Total Points ${totalPoints}`);
 
     /** @type {HTMLCanvasElement} */
-//Draw inital graph 
-console.log(document.getElementById("myRange").value);
-initGraph(scaleRange.value / 2, stx);
-scaleRange.onchange = () => {
-    clearAll(ltx, ptx, stx, ttx, canvas, saveNumber, totalPoints); 
-    gridSpacing = scaleRange.value / 2; 
-    initGraph(gridSpacing, stx);
-}
+
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------BARIER-------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+function toggleTab(tabIndex) {
+  // Remove active class from all tab buttons and contents
+  tabBtns.forEach((btn) => {
+    btn.classList.remove('active');
+  });
+  tabContents.forEach((content) => {
+    content.classList.remove('active');
+  });
+
+  // Add active class to clicked tab button and content
+  tabBtns[tabIndex].classList.add('active');
+  tabContents[tabIndex].classList.add('active');
+}
+
+// Add click event listeners to all tab buttons
+tabBtns.forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    toggleTab(index);
+  });
+});
+
+// Show default tab on page load
+toggleTab(0);
 
 
 //Get cords for canvas------------------------------------------------- 
@@ -73,6 +92,12 @@ canvas.onclick = function (e) {
 
   }
 };
+window.onload = function() {
+    clearAll(ltx, ptx, stx, ttx, canvas);
+    totalPoints = 0;
+    saveNumber = 0; 
+    initGraph(scaleRange.value / 2, stx);
+}
 shapify.onclick = function () {
   connectTheDots();
 }
@@ -91,6 +116,15 @@ rotate.onclick = function () {
 }
 Dilation.onclick = function () {
     doDialation();
+}
+
+
+scaleRange.onchange = () => {
+    clearAll(ltx, ptx, stx, ttx, canvas); 
+    totalPoints =0;
+    saveNumber = 0;
+    gridSpacing = scaleRange.value / 2; 
+    initGraph(gridSpacing, stx);
 }
 //Math for SNAP System @TM----------------------------------------------
 // function closestNumber(n, m)
