@@ -38,30 +38,15 @@ console.log(`Total Points ${totalPoints}`);
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
-function toggleTab(tabIndex) {
-  // Remove active class from all tab buttons and contents
-  tabBtns.forEach((btn) => {
-    btn.classList.remove('active');
-  });
-  tabContents.forEach((content) => {
-    content.classList.remove('active');
-  });
-
-  // Add active class to clicked tab button and content
-  tabBtns[tabIndex].classList.add('active');
-  tabContents[tabIndex].classList.add('active');
-}
-
 // Add click event listeners to all tab buttons
 tabBtns.forEach((btn, index) => {
   btn.addEventListener('click', () => {
-    toggleTab(index);
+    toggleTab(index, tabBtns, tabContents);
   });
 });
 
 // Show default tab on page load
 toggleTab(0);
-
 
 //Get cords for canvas------------------------------------------------- 
 function windowToCanvas(canvas, x, y) {
