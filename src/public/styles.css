@@ -10,7 +10,9 @@
 #preview {
   z-index: 2;
 }
-
+#fakeCanvas {
+  aspect-ratio: 1/1;
+}
 .canvas {
   border: 1px solid black;
   position: absolute;
@@ -86,13 +88,14 @@ button.options-button:hover {
 .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 100%; /* Full-width */
+  width: 100% !important; /* Full-width */
   height: 25px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
+  max-width: none;
 }
 
 /* Mouse-over effects */
@@ -195,7 +198,7 @@ nav {
   flex-direction: column;
   justify-content: flex-start;
   width:fit-content;
-  width: 25vw;
+  max-width: 25vw;
   border-right: 1px solid #000000;
   border-left: 1px solid #000000; 
   height: 100%;

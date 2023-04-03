@@ -36,24 +36,26 @@
       <input id = MoveX type = number value = 0 max = 10 min = -10 onchange = drawChangeArrow();>
       <i class="material-icons" id="material-icons-button">open_with</i>
     </button>
-    <button type = button class="options-button" id = reflect>Reflect</button>
+    <button type = button class="options-button" id = reflect>
+      Reflect
+      Y:
+      <input id = reflectY type = checkbox value = false onchange = updateReflectY();> 
+      X:
+      <input id = reflectX type = checkbox value = false onchange = updateReflectX();>
+      <i class="material-icons" id="material-icons-button">flip</i>
+    </button>
     <button type = button class="options-button" id = rotate>Rotate</button>
     <button type = button class="options-button" id = Dilation>
       Dilation
       <input id = scaleFactor Factor type = number value = 1 min = 0 max = 5 step="0.5" onchange = drawExampleShape();>
       <i class="material-icons" id="material-icons-button">fit_screen</i>
     </button>
-    <h3>Move Y</h3>
-
-    <h3>Reflect Y</h3>
-    <input id = reflectY type = checkbox value = false onchange = updateReflectY();> 
-    <h3>Reflect X</h3>
-    <input id = reflectX type = checkbox value = false onchange = updateReflectX();>
-    <h3>Scale Factor</h3>
+    <p>Grid Space</p>
     <input type="range" min="2" max="4" value="1" class="slider" id="myRange">
   </div>
   <div class="Grid">
-    <div class="canvas-wrapper"> 
+    <div class="canvas-wrapper">
+      <canvas class="canvas" id="fakeCanvas"></canvas>
       <canvas class = 'canvas' id = 'static' height="484" width="484"></canvas>
       <canvas class = 'canvas' id = 'dynamic' height="484" width="484"></canvas>
       <canvas class = 'canvas' id = 'lines' height="484" width="484"></canvas>

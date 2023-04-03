@@ -1,9 +1,7 @@
 import {initGraph} from "./graph.js";
 import { addPointStorage } from "./addStorage.js";
 import renderPoints from "./renderElements.js";
-// import {line} from "./modules/line.js";
-// import {point} from "./modules/point.js";s
-// import {shape} from "./modules/shape.js";
+import windowToCanvas from "./windowToCanvas.js";
 import { clearAll, clearGuidelines, clearPointsLinesGuidelines, clearStorage } from "./clearCanvas.js";
 import closestNumber from "./SNAP.js";
 //'Most of the global vars'--------------------------------------------
@@ -18,6 +16,7 @@ var t = document.getElementById("preview"),
 var totalPoints = 0,
     saveNumber = 0, 
     popUpSeen = false;
+var fakeCanvas = document.getElementById("fakeCanvas");
 var scaleRange = document.getElementById("myRange");
 var gridSpacing = scaleRange.value / 2;
 var cords = document.getElementById('cords');
@@ -38,32 +37,37 @@ console.log(`Total Points ${totalPoints}`);
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
+function toggleTab(tabIndex) {
+  // Remove active class from all tab buttons and contents
+  tabBtns.forEach((btn) => {
+    btn.classList.remove('active');
+  });
+  tabContents.forEach((content) => {
+    content.classList.remove('active');
+  });
+
+  // Add active class to clicked tab button and content
+  tabBtns[tabIndex].classList.add('active');
+  tabContents[tabIndex].classList.add('active');
+}
+
 // Add click event listeners to all tab buttons
 tabBtns.forEach((btn, index) => {
   btn.addEventListener('click', () => {
-    toggleTab(index, tabBtns, tabContents);
+    toggleTab(index);
   });
 });
 
 // Show default tab on page load
 toggleTab(0);
 
-//Get cords for canvas------------------------------------------------- 
-function windowToCanvas(canvas, x, y) {
-   var bbox = canvas.getBoundingClientRect();
-   return { x: x - bbox.left * (canvas.width  / bbox.width),
-            y: y - bbox.top  * (canvas.height / bbox.height)
-          };
-}
-
-
 // Event handlers.....................................................
 
 canvas.onclick = function (e) {
-   var loc = windowToCanvas(canvas, e.clientX, e.clientY);
+    const canvasMousePos = windowToCanvas(canvas, event.clientX, event.clientY);
   if (totalPoints < 20) {
 //    addStorage(loc.x,loc.y), saveNumber;
-   addPointStorage(loc.x, loc.y, saveNumber, gridSpacing); 
+   addPointStorage(canvasMousePos.x, canvasMousePos.y, saveNumber, gridSpacing); 
    saveNumber++
    renderPoints(ptx, canvas);
    //updateReadout(loc.x, loc.y);
