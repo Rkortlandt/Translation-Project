@@ -11,8 +11,6 @@ export class line {
         return {
             pointA: this.pointA,
             pointB: this.pointB,
-            type: "Line",
-            id: this.id
         };
     }
 }

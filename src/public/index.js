@@ -4,6 +4,7 @@ import renderPoints from "./renderElements.js";
 import windowToCanvas from "./windowToCanvas.js";
 import { clearAll, clearGuidelines, clearPointsLinesGuidelines, clearStorage } from "./clearCanvas.js";
 import closestNumber from "./SNAP.js";
+import freeLocation from "./freeLocation.js";
 //'Most of the global vars'--------------------------------------------
 var l = document.getElementById("lines"),
     ltx = l.getContext("2d");
@@ -22,6 +23,24 @@ var gridSpacing = scaleRange.value / 2;
 var cords = document.getElementById('cords');
 var reflectX = false, 
     reflectY = false;
+const modes = {
+    defaultMode: 'addPoint',
+    addPoints: 'addPoint',
+    addLine: 'addLine',
+    addLineSegment: 'addLineSegment',
+    addAngle: 'addAngle',
+    addCongruentSymbols: 'addCongruentSymbols',
+    addParallelSymbols: 'addParallelSymbols',
+    addPerpendicularSymbols: 'addPerpendicularSymbols',
+    addMidpointSymbols: 'addMidpointSymbols',
+    addBisectorSymbols: 'addBisectorSymbols',
+    addLengthMeasure: 'addLengthMeasure',
+    addCircle: 'addCircle',
+    addArc: 'addArc',
+    addSector: 'addSector',
+    addShape: 'addShape'
+}
+var currentMode = modes.addPoints;
 //Console.log (on initalize)
 
 console.log(`Total Points ${totalPoints}`);
@@ -65,22 +84,24 @@ toggleTab(0);
 
 canvas.onclick = function (e) {
     const canvasMousePos = windowToCanvas(canvas, event.clientX, event.clientY);
-  if (totalPoints < 20) {
-//    addStorage(loc.x,loc.y), saveNumber;
-   addPointStorage(canvasMousePos.x, canvasMousePos.y, saveNumber, gridSpacing); 
-   saveNumber++
-   renderPoints(ptx, canvas);
-   //updateReadout(loc.x, loc.y);
-   
-  }
-  else if (totalPoints > 19 && popUpSeen === false) {
-      alert('To many Points! (10)')
-      popUpSeen = true 
-  }
-  else {
+    console.log(currentMode);
+    switch (currentMode) {
+        case modes.addPoints:
+            let mfreeLocation = freeLocation(canvasMousePos, canvas, ptx, gridSpacing);
+            if (mfreeLocation.freeLocation) {
+                addPointStorage(canvasMousePos.x, canvasMousePos.y, gridSpacing); 
+                renderPoints(ptx, canvas);
+            } else {
+                sessionStorage.removeItem(sessionStorage.key(mfreeLocation.matchPoint));
+                renderPoints(ptx, canvas);
+            }
+        break;
+        default:
+            console.error('No mode selected')
+            break;
+    }
+}   
 
-  }
-};
 window.onload = function() {
     clearAll(ltx, ptx, stx, ttx, canvas);
     totalPoints = 0;
