@@ -1,19 +1,22 @@
 import {initGraph} from "./graph.js";
-import { addPointStorage } from "./addStorage.js";
-import renderPoints from "./renderElements.js";
+import { addPointStorage, addLineStorage } from "./addStorage.js";
+import {renderPoints, renderLines} from "./renderElements.js";
 import windowToCanvas from "./windowToCanvas.js";
 import { clearAll, clearGuidelines, clearPointsLinesGuidelines, clearStorage } from "./clearCanvas.js";
 import closestNumber from "./SNAP.js";
-import freeLocation from "./freeLocation.js";
+import isMatchingPoint from "./isMatchingPoint.js";
+import {handleAddPoint, handleAddLineSegment} from "./handleClick.js";
+import { createRoot } from 'react-dom/client';
+
 //'Most of the global vars'--------------------------------------------
 var l = document.getElementById("lines"),
     ltx = l.getContext("2d");
-var canvas = document.getElementById('dynamic'),
-    ptx = canvas.getContext('2d');
+var p = document.getElementById('dynamic'),
+    ptx = p.getContext('2d');
 var s = document.getElementById("static"),
     stx = s.getContext("2d");
-var t = document.getElementById("preview"),
-    ttx = t.getContext("2d");
+var canvas = document.getElementById("preview"),
+    ttx = canvas.getContext("2d");
 var totalPoints = 0,
     saveNumber = 0, 
     popUpSeen = false;
@@ -23,6 +26,7 @@ var gridSpacing = scaleRange.value / 2;
 var cords = document.getElementById('cords');
 var reflectX = false, 
     reflectY = false;
+var line = document.getElementById('line');
 const modes = {
     defaultMode: 'addPoint',
     addPoints: 'addPoint',
@@ -80,27 +84,45 @@ tabBtns.forEach((btn, index) => {
 // Show default tab on page load
 toggleTab(0);
 
+var pointsSelectedLineSeg = 0;
+var selectedPointA;
+var selectedPointB;
 // Event handlers.....................................................
+line.onclick = function () {
+    currentMode = modes.addLineSegment;
+    console.log(currentMode);
+    line.style.backgroundColor = "limegreen";
+}
 
 canvas.onclick = function (e) {
     const canvasMousePos = windowToCanvas(canvas, event.clientX, event.clientY);
     console.log(currentMode);
     switch (currentMode) {
         case modes.addPoints:
-            let mfreeLocation = freeLocation(canvasMousePos, canvas, ptx, gridSpacing);
-            if (mfreeLocation.freeLocation) {
-                addPointStorage(canvasMousePos.x, canvasMousePos.y, gridSpacing); 
-                renderPoints(ptx, canvas);
-            } else {
-                sessionStorage.removeItem(sessionStorage.key(mfreeLocation.matchPoint));
-                renderPoints(ptx, canvas);
-            }
+            handleAddPoint(canvasMousePos, canvas, ptx, gridSpacing, ltx);
+        break;
+        case modes.addLineSegment:
+            let mHandleAddLineSegment = handleAddLineSegment(canvasMousePos, canvas, ptx, ltx, gridSpacing, pointsSelectedLineSeg, line, ttx, selectedPointA, selectedPointB, modes);
+            pointsSelectedLineSeg = mHandleAddLineSegment.pointsSelectedLineSeg
+            currentMode = mHandleAddLineSegment.currentMode 
+            selectedPointA = mHandleAddLineSegment.selectedPointA 
+            selectedPointB = mHandleAddLineSegment.selectedPointB
         break;
         default:
             console.error('No mode selected')
             break;
     }
 }   
+canvas.onmousemove = function (e) {
+    const canvasMousePos = windowToCanvas(canvas, event.clientX, event.clientY);
+    let mIsMatchingPoint = isMatchingPoint(canvasMousePos, canvas, ptx, gridSpacing);
+    if (mIsMatchingPoint.isMatching === true) {
+        console.log('Mouse is over a point')
+        canvas.style.cursor = "pointer";
+    } else {
+        canvas.style.cursor = "default";
+    }
+}
 
 window.onload = function() {
     clearAll(ltx, ptx, stx, ttx, canvas);

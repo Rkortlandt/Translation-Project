@@ -16,3 +16,8 @@ export interface IShapeElement {
     type: string;
     element: shape;
 }
+export interface IElement {
+    id: number;
+    type: string;
+    element: any;
+}

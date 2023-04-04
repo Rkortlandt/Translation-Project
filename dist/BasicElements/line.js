@@ -1,11 +1,9 @@
 export class line {
     pointA;
     pointB;
-    id;
-    constructor(pointA, pointB, id) {
+    constructor(pointA, pointB) {
         this.pointA = pointA;
         this.pointB = pointB;
-        this.id = id;
     }
     get getLine() {
         return {

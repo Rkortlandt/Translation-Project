@@ -6,8 +6,8 @@ function newID() {
     return Math.floor(Math.random() * 1000000000000);
 }
 export function addLineStorage(pointA, pointB) {
-    var Line = new line(pointA, pointB, newID());
-    sessionStorage.setItem(`${Line.getLine.id}${Line.getLine.type}`, JSON.stringify(Line.getLine));
+    var mElement = new element(newID(), 'line', new line(pointA, pointB));
+    sessionStorage.setItem(`${mElement.id}${mElement.type}`, JSON.stringify(mElement));
 }
 export function addPointStorage(x, y, gridSpacing) {
     const pointScreenPoint = {

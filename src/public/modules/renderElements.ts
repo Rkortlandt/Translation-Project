@@ -1,6 +1,7 @@
-import { IPointElement } from "./Interfaces/IElement.js";
+import { IPointElement, ILineElement, IElement} from "./Interfaces/IElement.js";
+import IsMatchingPoint from "./isMatchingPoint.js";
 
-export default function renderPoints(ptx: any, canvas: any) {
+export function renderPoints(ptx: any, canvas: any) {
   ptx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < sessionStorage.length; i++) {
     const Element: IPointElement | null = JSON.parse(sessionStorage.getItem(sessionStorage.key(i)));
@@ -15,4 +16,25 @@ export default function renderPoints(ptx: any, canvas: any) {
   }
 }
 
-  
+export function renderLines(ltx: any, canvas: any, ptx: any, gridSpacing: number) {
+  ltx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < sessionStorage.length; i++) {
+    const Element: IElement | null = JSON.parse(sessionStorage.getItem(sessionStorage.key(i)));
+    if (Element == null || Element.type != 'line') {
+        continue;
+    }
+    if (
+      IsMatchingPoint({x: Element.element.pointA.element.pointScreenPoint.X, y: Element.element.pointA.element.pointScreenPoint.Y}, canvas, ptx, gridSpacing).isMatching 
+      && 
+      IsMatchingPoint({x: Element.element.pointB.element.pointScreenPoint.X, y: Element.element.pointB.element.pointScreenPoint.Y}, canvas, ptx, gridSpacing).isMatching) {
+        ltx.beginPath();
+        ltx.strokeStyle = "#00000";
+        ltx.moveTo(Element.element.pointA.element.pointScreenPoint.X, Element.element.pointA.element.pointScreenPoint.Y);
+        ltx.lineTo(Element.element.pointB.element.pointScreenPoint.X, Element.element.pointB.element.pointScreenPoint.Y);
+        ltx.stroke();
+    } else {
+      sessionStorage.removeItem(sessionStorage.key(i));
+    }
+  }
+}
+
