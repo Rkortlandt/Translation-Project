@@ -1,0 +1,38 @@
+/*nav bar code*/
+nav {
+    background-color: #14425a;
+    color: white;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navbar-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-logo img {
+    max-height: 40px;
+  }
+  
+  .navbar-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar-menu li {
+    margin: 0 10px;
+  }
+  
+  .navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
