@@ -1,0 +1,35 @@
+.explanationBar{
+    grid-area: rightSideBar; 
+    max-width: 20vw;
+    overflow-y: auto; /* Add scrollbars if necessary */
+    overflow-x: hidden;
+    height:100%
+  }
+
+  .rightSideBar-selector {
+    display: flex;
+  }
+  
+  .tab-btn {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .tab-btn.active {
+    border-bottom: 2px solid black;
+    width: 20vw;
+    overflow-y: auto; /* Add scrollbars if necessary */
+    overflow-x: hidden;
+  }
+  
+  .tab-content {
+    display: none; 
+  }
+  
+  .tab-content.active {
+    display: block;
+  }

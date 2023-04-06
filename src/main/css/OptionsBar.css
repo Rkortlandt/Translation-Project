@@ -1,0 +1,33 @@
+
+button.options-button {
+    -webkit-appearance: none;
+    border: none;
+    border-bottom: 1px solid #000000;
+    color: black;
+    background-color: white;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.2s ease-in-out; /* add transition */
+  }
+  
+  button.options-button:hover {
+    background-color: #e8e8e8; /* change background color on hover */
+  }
+  
+  .options-bar {
+    grid-area: Options; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width:fit-content;
+    max-width: 20vw;
+    border-right: 1px solid #000000;
+    border-left: 1px solid #000000; 
+    height: 100%;
+    overflow-y: auto; /* Add scrollbars if necessary */
+  }

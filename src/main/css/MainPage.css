@@ -1,0 +1,84 @@
+
+  #rotate:hover {
+    transition: 2s ease-in-out;
+  }
+  #Dilation:hover {
+    transition: 1s ease-in-out;
+  }
+  #translate:hover {
+    transition: 1s ease-in-out;
+  }
+  #clearcanvas:hover {
+    transition: 1s ease-in-out;
+  }
+  /* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100% !important; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  max-width: none;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin: 0px;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+h3 {
+ width: auto;
+ height: 20px;
+ margin-left: .10cm;
+ margin-right: .10cm;
+}
+input {
+ height: 12px;
+ margin:auto;
+ border-width: 1px;
+ max-width: 25px;
+}
+#material-icons-button {
+  font-size: 20px;
+  margin-left: 5px;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  margin:0;
+}
+
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 20vw 1fr 25vw;
+  grid-template-rows: 100%;
+  gap: 0px 0px;
+  grid-auto-flow: column;
+  grid-template-areas: "Options Grid rightSideBar";
+  height: 95vh;
+}
+  
+
+
+
