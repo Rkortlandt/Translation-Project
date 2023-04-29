@@ -5,14 +5,17 @@ import { IModes, modes } from './modules/Interfaces/IModes';
 
 export default function OptionsBar (props :{ mode: string, onModeChange: (newMode: string) => void}) {
     const handleAddLineSegmentClick = () => {
-        props.onModeChange(modes.addLineSegment);
+      props.onModeChange(modes.addLineSegment);
+    }
+    const handleResetClick = () => {
+      props.onModeChange(modes.reset);
     }
 
     return (
-        <div className="options-bar">
-        <button type="button" className="options-button" id="clearcanvas">
-          Reset 
-          <i className="material-icons" /*onClick={clearAll()}*/ id="material-icons-button">clear_all</i>
+      <div className="options-bar">
+        <button type="button" className="options-button" id="clearcanvas" onClick={handleResetClick}>
+          Reset
+          <i className="material-icons" id="material-icons-button">clear_all</i>
         </button>
         <button type="button" className="options-button" id="shapify">
           Shapify
@@ -74,7 +77,7 @@ export default function OptionsBar (props :{ mode: string, onModeChange: (newMod
           <i className="material-icons" id="material-icons-button">fit_screen</i>
         </button>
         <button type="button" className="options-button" onClick={handleAddLineSegmentClick} id="line">
-          New line Segment 
+          New lineSeg Segment
           <i className="material-icons" id="material-icons-button">add</i>
         </button>
         <p>Grid Space</p>

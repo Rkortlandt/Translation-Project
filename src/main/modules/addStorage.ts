@@ -1,26 +1,27 @@
-import { line } from "./BasicElements/line.js";
-import { point } from "./BasicElements/point.js";
+import { lineSegElement } from "./BasicElements/lineSegElement";
+import { pointElement } from "./BasicElements/pointElement";
 import { element } from "./BasicElements/element.js";
 import closestNumber from "./SNAP.js";
-import { IElement } from "./Interfaces/IElement.js";
+import {elementTypes, IElement, ILineSegElement, IPoint, IPointElement} from "./Interfaces/IElement.js";
 
 function newID () {
     return Math.floor(Math.random() * 1000000000000);
 }
-export function addLineStorage(pointA : IElement, pointB: IElement) {
-    var mElement = new element(newID(), 'line', new line(pointA, pointB));
-    sessionStorage.setItem(`${mElement.id}${mElement.type}`, JSON.stringify(mElement));
+export function addLineStorage(pointA : IPointElement, pointB: IPointElement) {
+    let lineSeg : ILineSegElement = {pointA, pointB};
+    let mlineSegElement = new lineSegElement(newID(), elementTypes.lineSeg, lineSeg)
+    sessionStorage.setItem(`${mlineSegElement.id}${mlineSegElement.type}`, JSON.stringify(mlineSegElement));
 }
-
 export function addPointStorage(x: number, y: number, gridSpacing: number) {
     const pointScreenPoint = {
-        X: closestNumber(x, gridSpacing),
-        Y: closestNumber(y, gridSpacing)
+        x: closestNumber(x, gridSpacing),
+        y: closestNumber(y, gridSpacing)
     }  
     const pointCords = {
-        X: (pointScreenPoint.X - 484/2) / (22 / gridSpacing),
-        Y: (-pointScreenPoint.Y + 484/2) / (22 / gridSpacing)  
+        x: (pointScreenPoint.x - 484/2) / (22 / gridSpacing),
+        y: (-pointScreenPoint.y + 484/2) / (22 / gridSpacing)
     }
-    var mElement = new element(newID(), 'point', new point(pointCords, pointScreenPoint));
-    sessionStorage.setItem(`${mElement.id}${mElement.type}`, JSON.stringify(mElement));
+    let point : IPoint = {pointCords, pointScreenPoint}
+    let mPointElement = new pointElement(newID(), elementTypes.point, point);
+    sessionStorage.setItem(`${mPointElement.id}${mPointElement.type}`, JSON.stringify(mPointElement));
 }

@@ -9,24 +9,24 @@ export function initGraph(gridSpacing : number, stx : any) {
 	stx.translate(484/2, 484/2);
 	stx.strokeStyle = "#000000"
 	stx.beginPath()
-	//line to right 
+	//lineSegElement to right
 	stx.moveTo(0,0);
 	stx.lineTo(242-22, 0);
 	stx.stroke();
-	//line to left  
+	//lineSegElement to left
 	stx.moveTo(0,0);
 	stx.lineTo(-242+22, 0);
 	stx.stroke();
-	//line down    
+	//lineSegElement down
 	stx.moveTo(0,0);
 	stx.lineTo(0, 242-22);
 	stx.stroke();
-	//line up    
+	//lineSegElement up
 	stx.moveTo(0,0);
 	stx.lineTo(0, -242+22);
 	stx.stroke();
 
-	//Black line markers----------------------------------------------------    
+	//Black lineSegElement markers----------------------------------------------------
 	for (let i = -10 * gridSpacing; i <= 10 * gridSpacing; i++) {
 		let y = (-22 / gridSpacing) * i;
 		let x = -10 / gridSpacing;
